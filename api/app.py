@@ -1,8 +1,14 @@
-from utils.resume_parser import extract_text_from_pdf, preprocess_text
 from flask import Flask, render_template, request
+from utils.resume_parser import extract_text_from_pdf, preprocess_text
 
 app = Flask(__name__)
 
+# Home page
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+# Upload page
 @app.route("/upload", methods=["POST"])
 def upload():
 
@@ -25,3 +31,6 @@ def upload():
         "Job Description Length": len(jd_text),
         "Resumes": output
     }
+
+if __name__ == "__main__":
+    app.run()
