@@ -1,10 +1,9 @@
+Flask
+pdfplumber
 pandas
 numpy
-pdfplumber
+scikit-learn
 nltk
 spacy
-scikit-learn
-matplotlib
-python-Levenshtein
 rapidfuzz
-jupyter
+python-Levenshtein
