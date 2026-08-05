@@ -1,1 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Screening System</title>
+</head>
+<body>
 
+<h1>Resume Screening System using NLP</h1>
+
+<form action="/upload" method="POST" enctype="multipart/form-data">
+
+    <h3>Upload Job Description</h3>
+    <input type="file" name="job_description" required>
+
+    <br><br>
+
+    <h3>Upload Resume(s)</h3>
+    <input type="file" name="resumes" multiple required>
+
+    <br><br>
+
+    <button type="submit">
+        Screen Resumes
+    </button>
+
+</form>
+
+</body>
+</html>
