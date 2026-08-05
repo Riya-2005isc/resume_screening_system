@@ -1,3 +1,4 @@
+from utils.resume_parser import extract_text_from_pdf, preprocess_text
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
