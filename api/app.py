@@ -1,90 +1,56 @@
-import streamlit as st
-import pdfplumber
-import re
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
+import os
+import sys
 
-st.set_page_config(page_title="Resume Screening System", layout="wide")
+from flask import Flask, render_template, request
 
-st.title("📄 Resume Screening System using NLP")
+# Add project root to Python path
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, PROJECT_ROOT)
 
-# -------------------------
-# Function to extract text
-# -------------------------
-def extract_text(pdf_file):
-    text = ""
-    with pdfplumber.open(pdf_file) as pdf:
-        for page in pdf.pages:
-            page_text = page.extract_text()
-            if page_text:
-                text += page_text + "\n"
-    return text
+from utils.resume_parser import extract_text_from_pdf, preprocess_text
 
-# -------------------------
-# Text preprocessing
-# -------------------------
-def preprocess(text):
-    text = text.lower()
-    text = re.sub(r'[^a-zA-Z0-9 ]', ' ', text)
-    text = re.sub(r'\s+', ' ', text)
-    return text
-
-# -------------------------
-# Upload files
-# -------------------------
-jd_file = st.file_uploader(
-    "Upload Job Description (PDF)",
-    type=["pdf"]
+# Templates are in the root/templates folder
+app = Flask(
+    __name__,
+    template_folder=os.path.join(PROJECT_ROOT, "templates")
 )
 
-resume_files = st.file_uploader(
-    "Upload Resume PDFs",
-    type=["pdf"],
-    accept_multiple_files=True
-)
 
-# -------------------------
-# Screen resumes
-# -------------------------
-if st.button("Screen Resumes"):
+@app.route("/")
+def home():
+    return render_template("index.html")
 
-    if jd_file is None:
-        st.error("Please upload a Job Description.")
-        st.stop()
 
-    if len(resume_files) == 0:
-        st.error("Please upload at least one Resume.")
-        st.stop()
+@app.route("/upload", methods=["POST"])
+def upload():
 
-    jd_text = preprocess(extract_text(jd_file))
+    jd = request.files.get("job_description")
+    resumes = request.files.getlist("resumes")
 
-    resume_names = []
-    resume_texts = []
+    if not jd:
+        return {"error": "Please upload a Job Description."}, 400
 
-    for resume in resume_files:
-        resume_names.append(resume.name)
-        resume_texts.append(preprocess(extract_text(resume)))
+    if not resumes:
+        return {"error": "Please upload at least one resume."}, 400
 
-    documents = [jd_text] + resume_texts
-
-    vectorizer = TfidfVectorizer(stop_words="english")
-    tfidf_matrix = vectorizer.fit_transform(documents)
-
-    similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:]).flatten()
-
-    result = pd.DataFrame({
-        "Resume": resume_names,
-        "ATS Score (%)": (similarity * 100).round(2)
-    })
-
-    result = result.sort_values(
-        by="ATS Score (%)",
-        ascending=False
+    jd_text = preprocess_text(
+        extract_text_from_pdf(jd)
     )
 
-    st.success("Screening Completed")
+    output = []
 
-    st.dataframe(result, use_container_width=True)
+    for resume in resumes:
 
-    st.bar_chart(result.set_index("Resume"))
+        resume_text = preprocess_text(
+            extract_text_from_pdf(resume)
+        )
+
+        output.append({
+            "name": resume.filename,
+            "length": len(resume_text)
+        })
+
+    return {
+        "Job Description Length": len(jd_text),
+        "Resumes": output
+    }
