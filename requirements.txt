@@ -1,5 +1,6 @@
-streamlit
+Flask
 pdfplumber
 pandas
 numpy
 scikit-learn
+nltk
