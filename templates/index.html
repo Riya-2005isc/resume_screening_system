@@ -1385,16 +1385,13 @@ form.addEventListener(
                NOT /api/upload
                ================================================= */
 
-            const response =
-                await fetch(
-                    "/upload",
-                    {
-                        method: "POST",
-
-                        body: formData
-                    }
-                );
-
+            const response = await fetch(
+    "/upload",
+    {
+        method: "POST",
+        body: formData
+    }
+);
 
             console.log(
                 "Response status:",
