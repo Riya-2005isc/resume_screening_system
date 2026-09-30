@@ -1,30 +1,85 @@
-# Resume Screening System using NLP
+# 📄 Resume Screening System Using NLP
 
-## Overview
-This project is an NLP-based Resume Screening System that automatically analyzes resumes and compares them with a Job Description (JD). It helps recruiters identify the most suitable candidates by ranking resumes based on their similarity to the job requirements.
+An NLP-based Resume Screening System that automatically analyzes resumes and compares them with a Job Description (JD). The system extracts candidate information, identifies skills, calculates similarity, and ranks candidates based on their suitability.
 
-## Features
-- Upload Resume PDFs
-- Upload Job Description (JD)
-- Extract text from PDF files
-- Text preprocessing using NLP
-- Resume-JD matching using TF-IDF and Cosine Similarity
-- Resume ranking based on matching score
+---
 
-## Technologies Used
+# 1. 📌 Project Overview
+
+Recruiters often receive a large number of resumes for a single job position. Manually reviewing every resume is time-consuming.
+
+This project uses Natural Language Processing (NLP) to automate the initial resume screening process.
+
+The system processes 100 ATS-style PDF resumes and compares them with a Data Scientist Job Description.
+
+---
+
+# 2. 🎯 Objectives
+
+- Extract text from PDF resumes
+- Clean and normalize resume text
+- Extract candidate information
+- Identify technical skills and experience
+- Apply NLP techniques
+- Compare resumes with a Job Description
+- Calculate candidate matching scores
+- Identify matched and missing skills
+- Rank candidates automatically
+
+---
+
+# 3. 📂 Dataset
+
+The project uses:
+
+- 100 ATS-style PDF resumes
+- 1 Job Description
+
+### Resume Information
+
+- Name
+- Email
+- Phone Number
+- Education
+- Skills
+- Work Experience
+- Projects
+- Certifications
+
+### Job Role
+
+**Data Scientist**
+
+### Required Skills
+
 - Python
-- Jupyter Notebook
-- NLTK
-- spaCy
-- Scikit-learn
+- SQL
+- Machine Learning
+- NLP
 - Pandas
-- NumPy
-- pdfplumber
+- Scikit-learn
+- TensorFlow
+- Tableau
 
-## How to Run
-1. Open `Resume_Screening_.ipynb`.
-2. Install the required libraries.
-3. Run all notebook cells.
+---
 
-## Author
-Riya Rathod
+# 4. 🧠 NLP Techniques Used
+
+## 4.1 Text Normalization
+
+Resume text is cleaned and converted into a consistent format using lowercase conversion, removal of unnecessary characters, tokenization, stop-word removal, and lemmatization.
+
+## 4.2 Regular Expressions
+
+Regular Expressions are used to extract information such as email addresses, phone numbers, and experience from resumes.
+
+## 4.3 Lemmatization
+
+Lemmatization converts words into their base form.
+
+Example:
+
+```text
+learning → learn
+projects → project
+skills → skill    
