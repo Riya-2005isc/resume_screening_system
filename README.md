@@ -46,21 +46,21 @@ learning → learn
 projects → project
 skills → skill
 
-###3.4 POS Tagging
+### 3.4 POS Tagging
 Identifies nouns, verbs, adjectives, and other word types.
 
-###3.5 TF-IDF
+### 3.5 TF-IDF
 Converts resume and JD text into numerical vectors.
 
-###3.6 Cosine Similarity
+### 3.6 Cosine Similarity
 Measures similarity between the resume and JD.
 
-###3.7 Edit Distance
+### 3.7 Edit Distance
 Identifies spelling variations.
 Example:
 pythn → python
 
-##4. Methodology
+## 4. Methodology
 100 PDF Resumes
        ↓
 PDF Text Extraction
@@ -87,7 +87,7 @@ Candidate Scoring
        ↓
 Candidate Ranking
 
-##🛠️ 5. Technologies Used
+## 🛠️ 5. Technologies Used
 Python
 Pandas
 NumPy
@@ -101,7 +101,7 @@ Cosine Similarity
 Edit Distance
 Vercel
 
-##🌐 6. Deployment
+## 🌐 6. Deployment
 
 The Resume Screening System is deployed using Vercel.
 
@@ -109,11 +109,11 @@ The Resume Screening System is deployed using Vercel.
 
 https://resume-screening-system-xfz4.vercel.app/
 
-##📈 7. Results
+## 📈 7. Results
 
 The system automatically analyzes 100 resumes, compares them with the Data Scientist Job Description, identifies matched and missing skills, calculates scores, and ranks candidates.
 
-##👩‍💻 8. Author
+## 👩‍💻 8. Author
 
 Riya Rathod
 
